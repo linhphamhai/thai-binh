@@ -1,0 +1,137 @@
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+
+    <!-- Latest compiled and minified CSS & JS -->
+
+    <%include FileCSS.ejs %>
+</head>
+<style>
+    .image-table {
+        widows: 80px;
+        height: 60px;
+    }
+</style>
+
+<body>
+    <div class="page-container">
+        <div class="left-content">
+            <h1>Posts Manager</h1>
+            <table class="table table-striped">
+                <thead>
+                    <th>Tiêu đề</th>
+                    <th>Ảnh hiển thị</th>
+                    <th>Ngày đăng</th>
+                    <th>State</th>
+                    <th>Hành động</th>
+                </thead>
+                <tbody id="tblContent">
+                </tbody>
+            </table>
+
+            <ul class="pagination">
+                <% pages.forEach(function(element){%>
+                    <li class="page-item">
+                        <a href="#" class="page-link" data='<%=element %>'>
+                            <span class="page-value">
+                                <%=element %>
+                            </span>
+                        </a>
+
+                    </li>
+                    <%});%>
+            </ul>
+        </div>
+
+
+        <%include SideBarMenu.ejs %>
+    </div>
+
+
+
+
+</body>
+<%include FileJS.ejs %>
+    <script>
+
+        $(document).ready(function () {
+            var currentPage = 1;
+            loadPostByPage(currentPage);
+
+
+            function loadPostByPage(page) {
+                var link = '/admin-api/get-post-by-page?page=' + page;
+                $.ajax({
+                    url: link,
+                    method: 'GET',
+                    success: function (result) {
+                        var html = '';
+                        result.forEach(element => {
+                            html += createRow(element);
+                        });
+                        $("#tblContent").html(html);
+                    }
+                })
+            }
+
+            function loadPostByPage(page) {
+                var link = '/admin-api/get-post-by-page?page=' + page;
+                $.ajax({
+                    url: link,
+                    method: 'GET',
+                    success: function (result) {
+                        var html = '';
+                        result.forEach(element => {
+                            html += createRow(element);
+                        });
+                        $("#tblContent").html(html);
+                        $(".btnDelete").click(function () {
+                            var id = $(this).closest('tr').attr('data-myval');
+                            console.log(id);
+                            deletePost(id);
+                            
+                        });
+                    }
+                })
+            }
+
+            function createRow(post) {
+                var title = '<td>' + post.title + '</td>';
+                var image = '<td>' + '<img class="image-table" src="' + post.imageUrl + '" />' + '</td>';
+                var date = '<td>' + post.showTime + '</td>';
+                var state = '';
+                if (post.state) {
+                    state = '<td>' + '<span class="label label-success">Actived</span>' + '</td>';
+                } else {
+                    state = '<td>' + '<span class="label label-danger">Not Actived</span>' + '</td>';
+                }
+                var action = '<td><button class="btn btn-info btnEdit">Edit</button> <button class="btn btn-danger btnDelete">Hide</button>' + '</td>';
+                return '<tr data-myval="' + post._id + '">' + title + image + date + state + action + '</tr>'
+            }
+
+            $(".page-link").click(function () {
+                currentPage = $(this).attr('data');
+                loadPostByPage(currentPage);
+            });
+
+            function deletePost (postId) {
+                var url = '/admin-api/post-delete';
+                $.ajax({
+                    url: url,
+                    method: 'DELETE',
+                    data : {
+                        postId : postId
+                    },
+                    success: function (result) {
+                        loadPostByPage(currentPage);    
+                    }
+                })
+            }
+        });
+
+
+
+    </script>
+
+</html>

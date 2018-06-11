@@ -1,0 +1,109 @@
+<html>
+
+<head>
+    <title>Dashboard</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <%include FileCSS.ejs %>
+</head>
+
+<body style="overflow: scroll; overflow-y: auto;">
+    <div class="page-container">
+        <div class="left-content">
+            <h1>Tạo bài viết mới</h1>
+
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <div class="form-group">
+                        <label for="title">Tiêu đề bài viết</label>
+                        <input type="text" name="title" id="title" class="form-control">
+                    </div>
+
+                </div>
+
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <div class="form-group">
+                        <label for="imageUrl">Link ảnh</label>
+                        <input type="text" name="imageUrl" id="imageUrl" class="form-control">
+                    </div>
+                </div>
+
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <div class="form-group">
+                        <label for="category">Danh mục</label>
+                        <select name="category" id="category" class="form-control">
+                            <option value="1">Mùa hè xanh 2017</option>
+                            <option value="1">Tập huấn nội bộ 2017</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="overflow: scroll; overflow-y: auto;">
+                        <textarea style="overflow: scroll; overflow-y: auto;" name="" id="poster" cols="30" rows="50"></textarea>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary" style="float: left;; margin-top: 15px" id="btnAdd">Thêm</button>
+
+        </div>
+
+        <%include SideBarMenu.ejs %>
+    </div>
+
+
+</body>
+<%include FileJS.ejs %>
+    <script>
+        CKEDITOR.replace('poster');
+        $(document).ready(function () {
+            loadActions();
+            function submitData() {
+                var title = $('#title').val();
+                var imageUrl = $('#imageUrl').val();
+                var category = $('#category').val();
+                var content = CKEDITOR.instances['poster'].getData();
+                var post = { title, imageUrl, category, content };
+                $.ajax({
+                    url: "/admin-api/post",
+                    type: "post",
+                    dataType: "json",
+                    data: post,
+                    success: function (result) {
+                        if (result.result) {
+                            console.log(post);
+                            alert('Thanh cong');
+                        } else {
+                            alert('That bai');
+                        }
+                    }
+                });
+            }
+
+            function loadActions() {
+                $.ajax({
+                    url: "/admin-api/actions",
+                    type: "get",
+                    dataType: "json",
+                    success: function (result) {
+                        var html = '';
+                        if (result) {
+                            result.forEach(element => {
+                                html = html + '<option value="' + element._id + '">' + element.actionName + '</option>'
+                            });
+
+                        }
+                        $("#category").html(html);
+                    }
+                });
+            }
+
+            
+            $('#btnAdd').click(submitData);
+        });
+    </script>
+
+</html>

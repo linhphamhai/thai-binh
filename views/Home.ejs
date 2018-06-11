@@ -1,0 +1,85 @@
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+    <!-- Latest compiled and minified CSS & JS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/animated.css">
+    <link href="/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/home.css">
+
+    <title>Đội Sinh viên Tình nguyện Đồng Hương Thái Bình</title>
+</head>
+
+<body class="container" style="background-color: #e0e0e0">
+    <%include Menu %>
+        <header>
+            <div id="demo" class="carousel slide" data-ride="carousel" style="height: 400px;">
+
+                <!-- Indicators -->
+                <ul class="carousel-indicators">
+                    <li data-target="#demo" data-slide-to="0" class="active"></li>
+                    <li data-target="#demo" data-slide-to="1"></li>
+                    <li data-target="#demo" data-slide-to="2"></li>
+                </ul>
+
+                <!-- The slideshow -->
+                <div class="carousel-inner" style="height: 100%; width: 100%;">
+                    <div class="carousel-item active" id="slider1" style="height: 100%; width: 100%;">
+                        <img src="/images/halong.jpg" alt="" class="image-slider">
+                        <div class="carousel-caption">
+                            <h3></h3>
+                        </div>
+                    </div>
+                    <div class="carousel-item" id="slider2" style="height: 100%; width: 100%;">
+                        <img src="/images/halong.jpg" alt="" class="image-slider">
+                    </div>
+                    <div class="carousel-item" id="slider3" style="height: 100%; width: 100%;">
+                        <img src="/images/hanoi.jpg" alt="" class="image-slider">
+                    </div>
+                </div>
+
+                <!-- Left and right controls -->
+                <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </a>
+                <a class="carousel-control-next" href="#demo" data-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </a>
+
+            </div>
+
+
+        </header>
+        <section id="newest" class="news-section">
+            <h1>Tin mới nhất</h1>
+            <div class="row" id="newest-post" style="height: 850px;">
+                <!-- <a href="#" class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="height: 100%">
+                    <div class="card" style="width: 100%;">
+                        <img class="card-img-top" src="https://imagejournal.org/wp-content/uploads/bb-plugin/cache/23466317216_b99485ba14_o-panorama.jpg"
+                            style="height: 100%; width: 100%">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </a> -->
+            </div>
+        </section>
+        <%include Footer %>
+</body>
+
+<script src="//code.jquery.com/jquery.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="/js/wow.js"></script>
+
+<script src="/js/home.js"></script>
+<script>
+        new WOW().init();
+    </script>
+</html>

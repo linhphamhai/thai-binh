@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html>
+
+<head>
+    <script src="http://www.wiris.net/demo/editor/editor"></script>
+    <script src="//code.jquery.com/jquery.js"></script>
+    <script>    
+        var editor;
+        window.onload = function () {
+            editor = com.wiris.jsEditor.JsEditor.newInstance({ 'language': 'en' });
+            editor.insertInto(document.getElementById('editorContainer'));
+            $(document).ready(function () {
+                $("#btn").click(function () {
+                    alert(editor.getLaTEX());
+                });
+            })
+        }
+
+
+    </script>
+</head>
+
+<body>
+    <div id="editorContainer"></div>
+    <button id="btn">asdas</button>
+    <div id="a"></div>
+</body>
+
+</html>
