@@ -11,7 +11,7 @@ var PageApi = require('./Api/PageApi');
 var AdminApi = require('./Api/AdminApi');
 var PostsManager = require('./controller/PostsManager');
 var ActionsManager = require('./controller/ActionsManager');
-app.listen(process.evn.PORT || 3000, function () {
+app.listen(process.env.PORT || 3000, function () {
     console.log('Server started !');
 });
 
